@@ -12,7 +12,8 @@ int floorNumber;
 
 void LIGHTS();
 
-void SAFETY();
+void SAFETY21();
+void SAFETY31();
 
 task main()
 {
@@ -84,7 +85,7 @@ task main()
 				LIGHTS();
 				turnLEDOn(light1);
 				startMotor(driver, 63);
-				untilEncoderCounts(0,encoder);
+				untilEncoderCounts(700,encoder);
 				stopMotor(driver);
 				floorNumber = 1;
 				clearTimer(T1);
@@ -99,9 +100,9 @@ task main()
 				floorNumber = 3;
 				clearTimer(T1);
 			}
-			if (time1[T1] > 20000)
+			if (time1[T1] > 5000)
 			{
-				SAFETY();
+				SAFETY21();
 			}
 		}
 		while(floorNumber == 3)
@@ -143,9 +144,9 @@ task main()
 				floorNumber = 2;
 				clearTimer(T1);
 
-				if (time1[T1] > 20000)
+				if (time1[T1] > 5000)
 				{
-					SAFETY();	
+					SAFETY31();	
 				}
 			}
 		}
@@ -160,10 +161,20 @@ void LIGHTS()
 	turnLEDOff(light3);
 }
 
-void SAFETY()
+void SAFETY21()
 {
 	startMotor (driver, 63);
 	untilEncoderCounts(730, encoder);
+	stopMotor (driver);
+	turnLEDOn(light1);
+	floorNumber = 1;
+	clearTimer(T1);
+}
+
+void SAFETY31()
+{
+	startMotor (driver, 63);
+	untilEncoderCounts(1370, encoder);
 	stopMotor (driver);
 	turnLEDOn(light1);
 	floorNumber = 1;
